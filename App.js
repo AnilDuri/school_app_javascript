@@ -14,6 +14,8 @@ import {
 } from "native-base";
 import NativeBaseIcon from "./components/NativeBaseIcon";
 import { Platform } from "react-native";
+import Navigation from "./navigation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // Define the config
 const config = {
@@ -27,7 +29,10 @@ export const theme = extendTheme({ config });
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Center
+      <SafeAreaProvider>
+        <Navigation />
+      </SafeAreaProvider>
+      {/* <Center
         _dark={{ bg: "blueGray.900" }}
         _light={{ bg: "blueGray.50" }}
         px={4}
@@ -61,7 +66,7 @@ export default function App() {
           </Link>
           <ToggleDarkMode />
         </VStack>
-      </Center>
+      </Center> */}
     </NativeBaseProvider>
   );
 }
