@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Button, View, Text } from "native-base";
+import { Button, View, Text, Center } from "native-base";
 import { useState } from "react";
 
 import { supabase } from "../services/supabaseClient";
@@ -20,14 +20,14 @@ export default AccountScreen = () => {
     navigation.navigate("Login");
   };
   return (
-    <View>
-      <Text>Account</Text>
+    <Center flex={1}>
+      <Text>Account Page</Text>
       <Button mt={5} isLoading={isLoading} onPress={() => signOut()}>
-        <Text>Sign Out</Text>
+        <Text color={'white'}>Sign Out</Text>
       </Button>
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-    </View>
+    </Center>
   );
 };
