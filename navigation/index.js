@@ -6,12 +6,14 @@ import { Pressable } from "native-base";
 import AccountScreen from "../screens/AccountScreen";
 import { LoginScreen } from "../screens/LoginScreen";
 import { SignUpScreen } from "../screens/SignUpScreen";
+import Calendar from "../screens/Tabs/CalendarTab";
+import Classes from "../screens/Tabs/ClassesTab";
 import HomeTab from "../screens/Tabs/HomeTab";
 import TabTwoScreen from "../screens/Tabs/PlaceholderTab";
 
 const BottomTab = createBottomTabNavigator();
 
-const TabBarIcon = ({ props }) => {
+const TabBarIcon = (props) => {
     return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
@@ -50,11 +52,19 @@ const BottomTabNavigator = ({ navigation }) => {
                 })}
             />
             <BottomTab.Screen
-                name="TabTwo"
-                component={TabTwoScreen}
+                name="Calendar"
+                component={Calendar}
                 options={{
-                    title: "Tab Two",
-                    tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+                    title: "Calendar",
+                    tabBarIcon: ({ color }) => <TabBarIcon name="calendar" color={'purple'} size={25} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Classes"
+                component={Classes}
+                options={{
+                    title: "Classes",
+                    tabBarIcon: ({ color }) => <TabBarIcon name="tablet" color={'purple'} />,
                 }}
             />
         </BottomTab.Navigator>
