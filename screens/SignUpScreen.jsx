@@ -1,3 +1,4 @@
+import { createUserWithEmailAndPassword } from "@firebase/auth";
 import {
   Box,
   Button,
@@ -11,6 +12,7 @@ import {
   VStack,
 } from "native-base";
 import { useState } from "react";
+import { auth } from "../services/firebaseConfig";
 
 import { supabase } from "../services/supabaseClient";
 
@@ -21,10 +23,12 @@ export const SignUpScreen = ({ navigation }) => {
 
   const signUp = async () => {
     setLoading(true);
-    let { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
+    let data = await createUserWithEmailAndPassword(auth, email, password);
+    console.log("DATA: ", data);
+    // let { data, error } = await supabase.auth.signUp({
+    //   email: email,
+    //   password: password,
+    // });
     setLoading(false);
   };
 
