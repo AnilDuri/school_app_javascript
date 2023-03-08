@@ -1,4 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { collection } from "@firebase/firestore";
 import {
   Box,
   Button,
@@ -14,6 +16,7 @@ import {
   VStack,
 } from "native-base";
 import { useState } from "react";
+import { auth, db } from "../services/firebaseConfig";
 import { supabase } from "../services/supabaseClient";
 
 export const LoginScreen = ({ navigation }) => {
@@ -21,14 +24,19 @@ export const LoginScreen = ({ navigation }) => {
 
   const signIn = async () => {
     setLoading(true);
-    let { error, data } = await supabase.auth.signInWithPassword({
-      email: "anilduri.a@gmail.com",
-      password: "password",
-    });
-    if (error) return;
-    let {  user } = data;
+    const data = await signInWithEmailAndPassword(
+      auth,
+      "anilduri.a@gmail.com",
+      "password"
+    );
+    // let { error, data } = await supabase.auth.signInWithPassword({
+    //   email: "anilduri.a@gmail.com",
+    //   password: "password",
+    // });
+    // if (error) return;
+    // let {  user } = data;
     setLoading(false);
-    navigation.navigate("Home", { screen: "HomeTab", params: { user } });
+    navigation.navigate("Home", { screen: "HomeTab", params: { data: data.currentUser } });
   };
 
   const [show, setShow] = useState(false);
