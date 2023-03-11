@@ -4,7 +4,7 @@ import { getAuth } from "@firebase/auth";
 import { supabase } from "../../services/supabaseClient";
 import { Button } from "native-base";
 import { db } from "../../services/firebaseConfig";
-import { query, collection, where, getDoc } from "@firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 export default HomeTab = ({ route, navigation }) => {
   const [auth, setAuth] = useState();
@@ -30,9 +30,22 @@ export default HomeTab = ({ route, navigation }) => {
   }, []);
 
   const getUser = async () => {
-    const q = query(collection(db, "parents"), where("user_id", "==", auth.currentUser.uid));
-    const user = await getDoc(q);
-    console.log("USER: ", user);
+    // console.log('Auth: ', auth);
+    const q = query(
+      collection(db, "parents"),
+      where("user_id", "==", auth.currentUser.uid)
+    );
+
+    const querySnapshot = await getDocs(q);
+    // console.log('QUERY SNAPSHOTS: ', querySnapshot)
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+
+    // const q = query(collection(db, "parents"), where("user_id", "==", auth.currentUser.uid));
+    // const user = await getDoc(q);
+    // console.log("USER: ", user);
   };
   return (
     <>
